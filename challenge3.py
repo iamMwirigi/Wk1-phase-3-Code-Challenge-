@@ -1,16 +1,24 @@
-def solve(s):
+def highest_consonant_value(s):
+    vowels = "aeiou"
     
-    def substring_value(substring):
-        return sum(ord(char) - ord('a') + 1 for char in substring)
+    def get_consonant_value(c):
+        return ord(c) - ord('a') + 1
+    
+    max_value = 0
+    current_value = 0
+    
+    for char in s:
+        if char not in vowels:
+            current_value += get_consonant_value(char)
+        else:
+            max_value = max(max_value, current_value)
+            current_value = 0
     
 
-    consonant_string = ''.join(char for char in s if char not in 'aeiou')
-    
-    substrings = consonant_string.split('a')  
-    max_value = max(substring_value(substring) for substring in substrings)
+    max_value = max(max_value, current_value)
     
     return max_value
 
-
-print(solve("zodiacs")) 
-print(solve("strength"))  
+input_string = "abcde"
+result = highest_consonant_value(input_string)
+print(result)
